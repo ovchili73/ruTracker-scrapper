@@ -1,1 +1,3 @@
-console.log("Hello via Bun!");
+import env from "./config/env";
+
+console.log(env);

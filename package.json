@@ -10,9 +10,7 @@
   "scripts": {
     "dev": "bun --watch src/index.ts",
     "start": "bun src/index.ts",
-    "type-check": "tsc --noEmit",
-    "test:small": "TORRENTS_LIMIT=5 bun src/index.ts",
-    "parse:full": "TORRENTS_LIMIT=200 bun src/index.ts"
+    "type-check": "tsc --noEmit"
   },
   "peerDependencies": {
     "typescript": "^5"
