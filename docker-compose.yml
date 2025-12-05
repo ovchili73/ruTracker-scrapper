@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  mongo:
+    image: mongo:7
+    container_name: rutracker-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  app:
+    build: .
+    container_name: rutracker-parser
+    depends_on:
+      - mongo
+    env_file:
+      - .env
+    volumes:
+      - ./src:/app/src
+    command: bun run dev
+
+volumes:
+  mongo-data:
