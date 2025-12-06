@@ -1,5 +1,7 @@
-import { connectDatabase } from "./config/db";
 import { env } from "./config/env";
+import { connectDatabase } from "./config/db";
+import { HttpClient } from "./utils/http";
+import { AuthService } from "./services/AuthService";
 
 async function main() {
   console.log("🚀 Запуск RuTracker Parser\n");
@@ -8,7 +10,19 @@ async function main() {
 
   await connectDatabase();
 
-  console.log("✅ Инициализация завершена!");
+  const http = new HttpClient();
+  const authService = new AuthService(http);
+
+  const isAuth = await authService.login();
+  if (!isAuth) {
+    console.error("❌ Не удалось авторизоваться");
+    process.exit(1);
+  }
+
+  // Проверяем сессию
+  await authService.checkAuth();
+
+  console.log("\n✅ Авторизация завершена!");
   process.exit(0);
 }
 

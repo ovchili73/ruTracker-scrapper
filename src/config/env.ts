@@ -14,6 +14,12 @@ const envSchema = z.object({
     .enum(["development", "production", "test"])
     .default("development"),
   PORT: z.coerce.number().int().positive().default(3000),
+
+  // Ручные cookies
+  BB_SESSION: z.string().optional(),
+  BB_GUID: z.string().optional(),
+  BB_SSL: z.string().optional(),
+  CF_CLEARANCE: z.string().optional(),
 });
 
 export type Env = z.infer<typeof envSchema>;
